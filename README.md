@@ -9,15 +9,15 @@
 - Enjoy
 
 # Dependencies
-[qb-core](https://github.com/qbcore-framework/qb-core)
+- [qb-core](https://github.com/qbcore-framework/qb-core)
 
-[qb-menu](https://github.com/qbcore-framework/qb-menu)
+- [qb-menu](https://github.com/qbcore-framework/qb-menu)
 
-[qb-input](https://github.com/qbcore-framework/qb-input)
+- [qb-input](https://github.com/qbcore-framework/qb-input)
 
-[qb-target](https://github.com/qbcore-framework/qb-target)
+- [qb-target](https://github.com/qbcore-framework/qb-target)
 
-[rs-fakeplate](https://github.com/rsdevelopmentt/rs-fakeplate)
+- [rs-fakeplate](https://github.com/rsdevelopmentt/rs-fakeplate)
 
 
 
