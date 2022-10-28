@@ -1,6 +1,6 @@
 # rs-vehicleshredding
 
-- The whole script does not belong to me, it is only six and only modified.
+- the whole script does not belong to me, I just developed and shared it on a system
 
 # Installation:
 
