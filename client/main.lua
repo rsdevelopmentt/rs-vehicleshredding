@@ -707,5 +707,4 @@ function FinishedChopping()
 	carDismantlingActive = false
 	DeleteEntity(car)
 	TriggerServerEvent("rs-vehicleshredding:giveitem", class)
-	TriggerServerEvent('ak4y-blackmarket:taskCountAdd', 2, 1)
 end
