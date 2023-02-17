@@ -3,8 +3,7 @@ local Translations = {
         negative = 'Negatif bir miktar satmaya mı çalışıyorsunuz?',
         no_items = 'Yetersiz Öğe',
         no_cops  = 'Yeterli sayıda polis yok',
-        no_cartheif = 'Şimdi Araç Parçalayamazsın 10 Dakika Sonra Gel',
-        no_cartheif2 = 'Şimdi Araç Parçalayamazsın 30 Dakika Sonra Gel',
+        no_cartheif = 'Şimdi Araç Parçalayamazsın 30 Dakika Sonra Gel',
         no_dist = 'Uzaklaştığın için parçalama iptal oldu!'
     },
 
@@ -58,7 +57,6 @@ local Translations = {
         getboxedpieces = 'Kutulanan Parcaları Al',
         collectingboxedpieces = 'Kutulanmış Parçalar Toplanıyor',
         smashthecar = '~w~~g~[E]~w~ Arabayı Parçala'
-
     }
 }
 

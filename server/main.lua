@@ -1,5 +1,4 @@
 QBCore = exports['qb-core']:GetCoreObject() -- Core
-local lastCd = 0
 
 RegisterServerEvent("rs-vehicleshredding:giveitem")
 AddEventHandler("rs-vehicleshredding:giveitem", function(class)
@@ -13,10 +12,6 @@ AddEventHandler("rs-vehicleshredding:giveitem", function(class)
 
             if math.random(0, 100) < 40 then 
                 xPlayer.Functions.AddItem('splaka', 1)
-            end
-
-            if math.random(0, 100) > 80 then
-                xPlayer.Functions.AddItem('lockpick', 1)
             end
 
             if math.random(0, 100) > 50 then
@@ -36,9 +31,6 @@ AddEventHandler("rs-vehicleshredding:giveitem", function(class)
             if class == 7 or class == 6 then
                 xPlayer.Functions.AddItem('highradio', 1)
                 xPlayer.Functions.AddItem('highrim', qualityrims)
-                -- if math.random(0, 100) > 98 then 
-                --     xPlayer.Functions.AddItem('labcard', doors)
-                -- end
             else
                 xPlayer.Functions.AddItem('lowradio', 1)
                 xPlayer.Functions.AddItem('stockrim', normalrim)
@@ -51,11 +43,15 @@ RegisterNetEvent('rs-vehicleshredding:server:sellItems', function(itemName, item
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local totalPrice = (tonumber(itemAmount) * itemPrice)
+    local jobearning = exports['ik-joblimit']:ControlEarning(src, totalPrice)
+    if not jobearning then return end
     if Player.Functions.RemoveItem(itemName, tonumber(itemAmount)) then
         if Config.BankMoney then
             Player.Functions.AddMoney('bank', totalPrice)
+            exports['ik-joblimit']:AddJobMoney(src, totalPrice)
         else
             Player.Functions.AddMoney('cash', totalPrice)
+            exports['ik-joblimit']:AddJobMoney(src, totalPrice)
         end
         TriggerClientEvent('QBCore:Notify', src, Lang:t('success.sold', { value = tonumber(itemAmount), value2 = QBCore.Shared.Items[itemName].label, value3 = totalPrice }),'success')
         TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[itemName], 'remove')
@@ -70,14 +66,4 @@ QBCore.Functions.CreateCallback('rs-vehicleshredding:server:getInv', function(so
     local Player = QBCore.Functions.GetPlayer(source)
     local inventory = Player.PlayerData.items
     return cb(inventory)
-end)
-
-
-QBCore.Functions.CreateCallback('rs-vehicleshredding:check-cd', function(source, cb)
-    if lastCd == 0 or (os.time() - lastCd) > 60 then 
-        lastCd = os.time()
-        cb(true)
-    else
-        cb(false)
-    end
 end)

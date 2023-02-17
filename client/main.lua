@@ -370,7 +370,7 @@ local carPartDot = {
 			["anim-disc"] = "anim@mp_fireworks",
 			["anim-name"] = "place_firework_3_box"
 		},
-		["prop"] =  "son",
+		["prop"] =  "sil",
 	}
 
 }
@@ -447,7 +447,7 @@ Citizen.CreateThread(function ()
 								carDismantlingActive = true
 								FinishedChopping()
 							elseif process == 3 then
-								if math.random(1,100) < 100 then
+								if math.random(1,100) < 50 then
 									exports[Config.dispatch]:chopcar()
 								end
 							end
@@ -482,8 +482,7 @@ Citizen.CreateThread(function ()
 end)
 
 Citizen.CreateThread(function()
-	for k,v in pairs(Config.Places) do
-	local blip = AddBlipForCoord(v.pdot.x+50, v.pdot.y-40, v.pdot.z)
+	local blip = AddBlipForCoord(-557.64, -1695.82, 19.16)
 
 	SetBlipSprite(blip, 380)
 	SetBlipScale(blip, 0.5)
@@ -493,7 +492,7 @@ Citizen.CreateThread(function()
 	BeginTextCommandSetBlipName('STRING')
 	AddTextComponentSubstringPlayerName(Lang:t("blip.vehicleshredding"))
 	EndTextCommandSetBlipName(blip)
-	end
+	--end
 end)
 
 CreateThread(function()
@@ -531,33 +530,28 @@ Citizen.CreateThread(function ()
 		local playercoordinate = GetEntityCoords(playerPed)
 		local distance = #(playercoordinate - vector3(v.pdot.x, v.pdot.y, v.pdot.z))
 
-		if not carDismantlingActive and distance then 
-			if IsPedSittingInAnyVehicle(PlayerPedId()) then
-				if distance < 25.0 then 
-					DrawMarker(20, v.pdot.x, v.pdot.y, v.pdot.z, 0, 0, 0, 0, 0, 0, 0.5, 0.5, 0.5, 255, 0, 0, 155, 0, 0, 2, 0, 0, 0, 0)
-					if distance < 1.2 then 
-						QBCore.Functions.DrawText3D(v.pdot.x, v.pdot.y, v.pdot.z - 0.1, tostring(Lang:t("drawtext.smashthecar")))
-						if IsControlJustPressed(0, 46) and not clientcooldown then
-							if CurrentCops >= Config.MinimumCops then
-									QBCore.Functions.TriggerCallback('rs-vehicleshredding:check-cd', function(cd)
-										if cd then
-											StartChopThisCar()
-										else
-											QBCore.Functions.Notify(Lang:t('error.no_cartheif'))
-										end
-									end)
+			if not carDismantlingActive and distance then 
+				if IsPedSittingInAnyVehicle(PlayerPedId()) then
+					if distance < 25.0 then
+						time = 1 
+						DrawMarker(20, v.pdot.x, v.pdot.y, v.pdot.z, 0, 0, 0, 0, 0, 0, 0.5, 0.5, 0.5, 255, 0, 0, 155, 0, 0, 2, 0, 0, 0, 0)
+						if distance < 1.2 then 
+							QBCore.Functions.DrawText3D(v.pdot.x, v.pdot.y, v.pdot.z - 0.1, tostring(Lang:t("drawtext.smashthecar")))
+							if IsControlJustPressed(0, 46) and not clientcooldown then
+								if CurrentCops >= Config.MinimumCops then
+									StartChopThisCar()
 								else
-								QBCore.Functions.Notify(Lang:t('error.no_cops'))
+									QBCore.Functions.Notify(Lang:t('error.no_cops'))
+								end
+							elseif IsControlJustPressed(0, 46) and clientcooldown then
+								QBCore.Functions.Notify(Lang:t('error.no_cartheif'))
 							end
 						end
-					elseif IsControlJustPressed(0, 46) and clientcooldown then
-						QBCore.Functions.Notify(Lang:t('error.no_cartheif2'))
-					 	end
 					end
 				end
 			end
 		end
-	Citizen.Wait(1)
+	Citizen.Wait(time)
 	end
 end)
 
@@ -573,7 +567,6 @@ end)
 
 local class = 0
 function StartChopThisCar()
-	for k,v in pairs(Config.Places) do
 	local playerPed = PlayerPedId()
 	car = GetVehiclePedIsIn(playerPed, false)
 	class = GetVehicleClass(car)
@@ -592,14 +585,14 @@ function StartChopThisCar()
 			backdoor = true
 		end
 
-		SetEntityCoords(car, v.pdot.x, v.pdot.y, v.pdot.z)
+		SetEntityCoords(car, -557.64, -1695.82, 19.16)
 		SetEntityHeading(car, 27.77)
 		SetEntityAsMissionEntity(car, true, true)
 		TaskLeaveVehicle(playerPed, car, 256)
 		SetVehicleDoorsLocked(car, 2)
 		carDismantlingActive = true
 		clientcooldown = true
-	end
+	--end
   end
 end
 
@@ -714,4 +707,5 @@ function FinishedChopping()
 	carDismantlingActive = false
 	DeleteEntity(car)
 	TriggerServerEvent("rs-vehicleshredding:giveitem", class)
+	TriggerServerEvent('ak4y-blackmarket:taskCountAdd', 2, 1)
 end

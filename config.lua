@@ -6,7 +6,7 @@ Config.MarkerType         = 27    -- Change to -1 to disable marker.
 Config.MarkerColor        = { r = 255, g = 0, b = 0 } -- Change the marker color.
 
 Config.dispatch = 'ps-dispatch' -- You can set Police Notification export here  sample:  ps-dispatch or qb-dispatch or erp-dispatch 
-Config.MinimumCops = 2
+Config.MinimumCops = 6
 Config.BankMoney = false -- Set to true if you want the money to go into the players bank 
 
 
@@ -14,47 +14,52 @@ Config.Places = {
         [1] = {
             pedhash = `a_m_y_golfer_01`, -- hash of the ped to create
             pdot = vector3(-557.64, -1695.82, 19.16), 
-            peddot = vector4(-165.16, -948.42, 38.36, 203.46),
-            tped = vector3(-165.16, -948.42, 39.36)
+            peddot = vector4(-448.43, -2184.05, 9.32, 0.0),
+            tped = vector3(-448.43, -2184.05, 9.32)
         },
     }
 
 Config.ChopItems = {
     [1] = {
         item = 'airbag',
-        price = math.random(50,100)
+        price = 225
     },
     [2] = { 
         item = 'lowradio',
-        price = math.random(50,100)
+        price = 275
     },
     [3] = {
         item = 'stockrim',
-        price = math.random(50,100)
+        price = 225
     },
     [4] = {
         item = 'doors',
-        price = math.random(50,100)
+        price = 310
     },
     [5] = {
         item = 'speaker',
-        price = math.random(50,100)
+        price = 220
     },
     [6] = {
         item = 'splaka',
-        price = math.random(50,100)
+        price = 525
     },
     [7] = {
-        item = 'lockpick',
-        price = math.random(50,100)
+        item = 'battery',
+        price = 210
     },
     [8] = {
-        item = 'battery',
-        price = math.random(50,100)
+        item = 'belt',
+        price = 200
     },
     [9] = {
-        item = 'belt',
-        price = math.random(50,100)
-    }
+        item = 'highradio',
+        price = 225
+    },
+    [10] = {
+        item = 'highrim',
+        price = 400
+    },
+
 }
 
