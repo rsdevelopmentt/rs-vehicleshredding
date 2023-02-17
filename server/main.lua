@@ -43,15 +43,11 @@ RegisterNetEvent('rs-vehicleshredding:server:sellItems', function(itemName, item
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local totalPrice = (tonumber(itemAmount) * itemPrice)
-    local jobearning = exports['ik-joblimit']:ControlEarning(src, totalPrice)
-    if not jobearning then return end
     if Player.Functions.RemoveItem(itemName, tonumber(itemAmount)) then
         if Config.BankMoney then
             Player.Functions.AddMoney('bank', totalPrice)
-            exports['ik-joblimit']:AddJobMoney(src, totalPrice)
         else
             Player.Functions.AddMoney('cash', totalPrice)
-            exports['ik-joblimit']:AddJobMoney(src, totalPrice)
         end
         TriggerClientEvent('QBCore:Notify', src, Lang:t('success.sold', { value = tonumber(itemAmount), value2 = QBCore.Shared.Items[itemName].label, value3 = totalPrice }),'success')
         TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[itemName], 'remove')
